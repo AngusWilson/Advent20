@@ -1,3 +1,3 @@
-input:read0 inputs/day1.txt
+input:read0 `:inputs/day1.txt
 
 
