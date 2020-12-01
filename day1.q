@@ -3,9 +3,17 @@ input:value each read0 `:inputs/day1.txt
 test:1721 979 366 299 675 1456
 
 
-//Loop over combinations and check if it sums to 2020 then multiply.
-/Tried using 'cross' to create combinations and solve as a vector calculation but was too memory intensive
+//Using cross to vectorise
+d1p1:{[input]
+    prd c first where 2020 =sum each c:input cross input
+    }
 
+d1p2:{[input]
+    prd c first where 2020 =sum each c:input cross input cross input 
+    }
+
+
+//Using loops - lower mem consumption
 d1p1:{[input]
     i:0;
     while[not any match:2020=input[i]+/:input;
