@@ -1,5 +1,3 @@
-system"cd /home/awilson1/Advent20/"
-
 input:read0 `:inputs/day3.txt
 
 test:(
