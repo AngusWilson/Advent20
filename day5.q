@@ -1,6 +1,6 @@
 input:read0 `:day5.txt
 
-seatID:{511.5+sum @[256 128 64 32 16 8 4 2 1 0.5;where x in\:"FL";neg]}
+seatID:{511.5+sum @[reverse(2 xexp til 10)%2;where x in\:"FL";neg]}
 
 d5p1:{[input]
     max seatID each input
