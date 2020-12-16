@@ -1,6 +1,7 @@
 input: read0 `:day16.txt
 
 d16p1:{[input]
+    //Parse
     split:1_/:(where ""~/:enlist[""],input) cut enlist[""],input;
 
     rules:split 0;
@@ -8,15 +9,16 @@ d16p1:{[input]
     rules:.[rules;(::;0);`$];
     rules:.[rules;(::;1);ssr[;"-";" "]];
     ruledict:rules[;0]!value each/: "or" vs/:rules[;1];
-
-    tickets:value each 1_split 2
-
+    tickets:value each 1_split 2;
+    
+    //Get where invalid
     sum raze tickets @' where each not any each (tickets) within/:\: raze value ruledict
     }
 
 
 
 d16p2:{[input]
+    //Parse 
     split:1_/:(where ""~/:enlist[""],input) cut enlist[""],input;
 
     rules:split 0;
@@ -24,12 +26,15 @@ d16p2:{[input]
     rules:.[rules;(::;0);`$];
     rules:.[rules;(::;1);ssr[;"-";" "]];
     ruledict:rules[;0]!value each/: "or" vs/:rules[;1];
-
     tickets:value each 1_split 2;
+    
+    //Get valid tickets
     tickets:tickets where all each any each (tickets) within/:\: raze value ruledict;
     
+    //Check which all of one position match rule
     ids:(til count f)!{[f;ruledict;x] where all each any each (f[x]) within/:/: ruledict}[f;ruledict;] each til count f:flip tickets;
 
+    //Iterate over single matches to rule out which is which
     while[count ids;
         loc:where 1=count each ids;
         identified,:loc!r:ids[loc];
@@ -37,6 +42,7 @@ d16p2:{[input]
         ids:key[ids]!value[ids] except\: first r;
         ];
     
+    //Get my ticket departures
     prd (value split[1][1])where first each identified like\: "departure*"
     }
     
